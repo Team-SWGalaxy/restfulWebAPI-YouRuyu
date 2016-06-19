@@ -4,9 +4,9 @@ var fs = require('fs');
 
 var insertItem = require('./insertItem');
 var deleteItem = require('./deleteItem');
-/*var updateItem = require('./updateItem');
- var getOneItem = require('./getOneItem');
- var getAllItem = require('./getAllItems');*/
+var updateItem = require('./updateItem');
+var getOneItem = require('./getOneItem');
+var getAllItem = require('./getAllItems');
 
 
 var itemsInformations = './items.json';
@@ -22,12 +22,11 @@ fs.exists(itemsInformations, function (exists) {
 });
 
 
-app.use('/item', insertItem);
-app.use('/item', deleteItem);
-/*app.use('/items', updateItem);
- app.use('/items', getOneItem);
- app.use('/items', getAllItem);
- */
+app.use('/items', insertItem);
+app.use('/items', deleteItem);
+app.use('/items', updateItem);
+app.use('/items', getOneItem);
+app.use('/items', getAllItem);
 
 var server = app.listen(3000, function () {
     console.log("server start:");
