@@ -29,6 +29,7 @@ function updateItems(items, updateId, req, res) {
         items[position].price = updateItem.price;
         fs.writeFile(itemsInformations, JSON.stringify(items));
         console.log("update success");
+        items.splice(0,1);
         res.status(200).json(items);
     }
     else {
