@@ -13,17 +13,25 @@ app.post('/', function (req, res) {
         }
         else {
             var items = JSON.parse(data);
-            var inputItem = insertItem(req, items);
-            items.push(inputItem);
-            items[0].count++;
-            res.status(201).json(items);
-            fs.writeFile(itemsInformations, JSON.stringify(items));
-            items.splice(0, 1);
-            console.log(items);
-            res.end();
+            console.log("add success!");
+            addTofile(req, res, items);
         }
     })
 });
+
+function addTofile(req, res, items) {
+    var inputItem = insertItem(req, items);
+    if (inputItem) {
+        items.push(inputItem);
+        items[0].count++;
+        fs.writeFile(itemsInformations, JSON.stringify(items));
+        items.splice(0, 1);
+        res.status(201).json(items);
+    }
+    else {
+        res.status(400).end();
+    }
+}
 
 function insertItem(req, items) {
     var inputItem = {
