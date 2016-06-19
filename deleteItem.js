@@ -7,25 +7,25 @@ app.use(bodyParser.json());
 var itemsInformations = './items.json';
 
 app.delete('/', function (req, res) {
-    fs.readFile(itemsInformations, function (err, data) {
+    fs.readFile(itemsInformations, 'utf-8', function (err, data) {
         if (err) {
             res.status(404).end();
         }
         else {
             var items = JSON.parse(data);
             var inputId = req.body.id;
-            var deleteId= findDeleteId(inputId,items,res);
-            fs.writeFile(itemsInformations,JSON.stringify(items));
-            console.log("delete success");
-            res.end();
+            findDeleteId(inputId, items, res);
         }
     });
 });
 
-function findDeleteId (inputId,items,res) {
-    var deleteId = matchDelId(inputId,items);
+function findDeleteId(inputId, items, res) {
+    var deleteId = matchDelId(inputId, items);
     if (deleteId) {
-        items.splice(deleteId,1);
+        items.splice(deleteId, 1);
+        fs.writeFile(itemsInformations, JSON.stringify(items));
+        console.log("delete success");
+        items.splice(0,1);
         res.status(200).json(items);
     }
     else {
