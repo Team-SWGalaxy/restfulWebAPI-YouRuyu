@@ -9,11 +9,9 @@ var itemsInformations = './items.json';
 app.post('/:id', function (req, res) {
     fs.readFile(itemsInformations, 'utf-8', function (err, data) {
         if (err) {
-            console.log ("1111");
             res.status(404).end();
         }
         else {
-
             var items = JSON.parse(data);
             var updateId = req.params.id;
             updateItems(items, updateId, req, res);
