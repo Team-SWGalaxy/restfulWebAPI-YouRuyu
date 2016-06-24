@@ -10,13 +10,13 @@ var getAllItem = require('./getAllItems');
 
 
 var itemsInformations = './items.json';
-fs.exists('./items.json', function (exists) {
+fs.exists(itemsInformations, function (exists) {
     if (!exists) {
-        if (!fs.createWriteStream('items.json', {encoding: "utf8"})) {
+        if (!fs.createWriteStream(itemsInformations, {encoding: "utf8"})) {
             console.log('error error');
         }
 
-        fs.writeFile('./items.json', JSON.stringify([{"count":0}]));
+        fs.writeFile(itemsInformations, JSON.stringify([{"count":0}]));
     }
 });
 
