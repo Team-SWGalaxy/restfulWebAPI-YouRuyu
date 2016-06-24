@@ -10,17 +10,15 @@ var getAllItem = require('./getAllItems');
 
 
 var itemsInformations = './items.json';
-fs.exists(itemsInformations, function (exists) {
+fs.exists('./items.json', function (exists) {
     if (!exists) {
-        var creatFile = fs.creatWriteAStream(itemsInformations, {encoding: utf8});
-        if (!creatFile) {
-            console.log("error!");
+        if (!fs.createWriteStream('items.json', {encoding: "utf8"})) {
+            console.log('error error');
         }
 
-        fs.writeFile(itemsInformations, 'utf-8', JSON.stringify([{"count": 0}]));
+        fs.writeFile('./items.json', JSON.stringify([{"count":0}]));
     }
 });
-
 
 app.use('/items', insertItem);
 app.use('/items', deleteItem);
@@ -29,7 +27,8 @@ app.use('/items', getOneItem);
 app.use('/items', getAllItem);
 
 var server = app.listen(3000, function () {
-    console.log("server start:");
+    var port = server.address().port;
+    console.log("server start with "+port);
 });
 
 
