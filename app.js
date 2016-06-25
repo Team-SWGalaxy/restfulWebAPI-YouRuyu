@@ -15,8 +15,7 @@ fs.exists(itemsInformations, function (exists) {
         if (!fs.createWriteStream(itemsInformations, {encoding: "utf8"})) {
             console.log('error error');
         }
-
-        fs.writeFile(itemsInformations, JSON.stringify([{"count":0}]));
+        fs.writeFile(itemsInformations, JSON.stringify([]));
     }
 });
 
