@@ -2,19 +2,16 @@ var express = require('express');
 var app = express();
 var fs = require('fs');
 
-var bodyParser = require("body-parser");
-app.use(bodyParser.json());
 var itemsInformations = './items.json';
 
-app.delete('/', function (req, res) {
+app.delete('/:id', function (req, res) {
     fs.readFile(itemsInformations, 'utf-8', function (err, data) {
-        if (err) {
-            res.status(404).end();
-        }
-        else {
+        if (!err) {
             var items = JSON.parse(data);
-            var inputId = req.body.id;
+            var inputId = req.params.id;
             findDeleteId(inputId, items, res);
+        } else {
+            res.status(404).end();
         }
     });
 });
@@ -25,7 +22,6 @@ function findDeleteId(inputId, items, res) {
         items.splice(deleteId, 1);
         fs.writeFile(itemsInformations, JSON.stringify(items));
         console.log("delete success");
-        items.splice(0,1);
         res.status(200).json(items);
     }
     else {
@@ -38,7 +34,7 @@ function matchDelId(inputId, items) {
     for (var i = 0; i < items.length; i++) {
         if (items[i].id === parseInt(inputId)) {
             flag = 1;
-            return items[i].id;
+            return i;
         }
     }
     if (flag === 0) {
