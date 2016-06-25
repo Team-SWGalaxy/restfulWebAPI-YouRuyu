@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
+var nextId = require('./nextId');
 
 var bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -23,9 +24,7 @@ function addTofile(req, res, items) {
     var inputItem = insertItem(req, items);
     if (inputItem) {
         items.push(inputItem);
-        items[0].count++;
         fs.writeFile(itemsInformations, JSON.stringify(items));
-        items.splice(0, 1);
         res.status(201).json(items);
     }
     else {
@@ -35,7 +34,7 @@ function addTofile(req, res, items) {
 
 function insertItem(req, items) {
     var inputItem = {
-        "id": items[0].count + 1,
+        "id":nextId(),
         "barcode": req.body.barcode,
         "name": req.body.name,
         "unit": req.body.unit,
