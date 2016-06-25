@@ -29,7 +29,6 @@ function updateItems(items, updateId, req, res) {
         items[position].price = updateItem.price;
         fs.writeFile(itemsInformations, JSON.stringify(items));
         console.log("update success");
-        items.splice(0,1);
         res.status(200).json(items);
     }
     else {
@@ -39,7 +38,7 @@ function updateItems(items, updateId, req, res) {
 
 function matchId(items, updateId) {
     var flag = 0;
-    for (var i = 1; i < items.length; i++) {
+    for (var i = 0; i < items.length; i++) {
         if (items[i].id == parseInt(updateId)) {
             flag = 0;
             return i;
