@@ -6,13 +6,12 @@ var itemsInformations = './items.json';
 
 app.get('/', function (req, res) {
     fs.readFile(itemsInformations, 'utf-8', function (err, data) {
-        if (err) {
-            res.status(404).end();
-        }
-        else {
+        if (!err) {
             var items = JSON.parse(data);
             console.log("success!");
             res.status(200).json(items);
+        } else {
+            res.sendStatus(404);
         }
     });
 });
