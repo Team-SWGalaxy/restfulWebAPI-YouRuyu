@@ -21,13 +21,13 @@ function findDeleteId(inputId, items, res) {
     var deleteId = _.findIndex(items, function (item) {
         return item.id === parseInt(inputId);
     });
-    if (deleteId) {
+    if (deleteId === -1) {
+        res.sendStatus(400);
+    } else {
         items.splice(deleteId, 1);
         fs.writeFile(itemsInformations, JSON.stringify(items));
         console.log("delete success");
         res.status(200).json(items);
-    } else {
-        res.sendStatus(400);
     }
 }
 
