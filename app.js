@@ -27,7 +27,7 @@ app.use('/items', getAllItem);
 
 var server = app.listen(3000, function () {
     var port = server.address().port;
-    console.log("server start with "+port);
+    console.log("server start with " + port);
 });
 
 
